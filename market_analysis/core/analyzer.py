@@ -1,6 +1,6 @@
-from ..utils.imports import *
-from ..models.data_classes import IndexReturn, MarketAnalysis
-from ..config.settings import Settings
+from market_analysis.utils.imports import *
+from market_analysis.models.data_classes import IndexReturn, MarketAnalysis
+from market_analysis.config.settings import Settings
 
 
 class MarketIndexAnalyzer:
@@ -85,9 +85,11 @@ class MarketIndexAnalyzer:
         if df is None:
             try:
                 self._wait_for_rate_limit()
+                print(f"Symbol: {symbol}, Type: {type(symbol)}")
                 ts = TimeSeries(key=self.api_key, output_format='pandas')
                 # TODO: 从API获取数据,这里的问题可能在于symbol名称不对。需要调查一下这个API的使用方法
-                df, _ = ts.get_daily_adjusted(symbol=symbol, outputsize='full')
+                # TODO: 下方读取到的symbol不是字符串，而是时间戳，原因不明
+                df, _ = ts.get_weekly_adjusted(symbol=symbol)  # 应该用daily，但是daily adjusted是收费的。
 
                 # 保存到缓存
                 df_dict = df.to_dict()
