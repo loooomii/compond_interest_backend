@@ -34,7 +34,7 @@ def main():
         print(f"输出文件: {args.output}")
 
         # 初始化分析器
-        analyzer = MarketIndexAnalyzer(api_key="your api key")  # 这里API key要从env文件中读取
+        analyzer = MarketIndexAnalyzer()  # 这里API key会自动从env文件中读取
 
         # 进行分析
         print("\n正在获取和分析数据...")
